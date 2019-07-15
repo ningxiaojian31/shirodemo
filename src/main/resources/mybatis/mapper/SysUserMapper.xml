@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zdxh.shirodemo.mapper.SysUserMapper">
+    <!--授权相关-->
+    <!--通过用户ID查询该用户权限-->
+    <select id="findAllPermsByUserId" parameterType="int" resultType="cn.zdxh.shirodemo.entity.SysPerms">
+        SELECT p.id,p.perms FROM sys_user_role ur
+        LEFT JOIN sys_role r
+        ON ur.role_id = r.id
+        LEFT JOIN sys_role_perms rp
+        ON r.id = rp.role_id
+        LEFT JOIN sys_perms p
+        ON rp.perms_id = p.id
+        WHERE ur.user_id= #{id}
+    </select>
+
+    <!--通过用户ID查询该用户角色-->
+    <select id="findAllRolesByUserId" parameterType="int" resultType="cn.zdxh.shirodemo.entity.SysRole">
+        SELECT r.id,r.create_user_id,r.role_name,r.role_remark,r.create_time
+        FROM sys_user_role ur
+        LEFT JOIN sys_role r
+        ON ur.role_id = r.id
+        WHERE ur.user_id = #{id}
+    </select>
+
+    <!--通过用户名查询该用户信息-->
+    <select id="findUserByUsername" parameterType="string" resultType="cn.zdxh.shirodemo.entity.SysUser">
+        SELECT * FROM sys_user WHERE username = #{username}
+    </select>
+
+</mapper>

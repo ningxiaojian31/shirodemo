@@ -1,0 +1,15 @@
+#配置mysql
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/shiro?serverTimezone=GMT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+#配置mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+#显示sql语句
+logging:
+  level:
+    cn.zdxh.shirodemo.mapper: DEBUG
+
